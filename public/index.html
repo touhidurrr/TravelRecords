@@ -1,22 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Planning Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <div class="login-form">
-    <h2>Login</h2>
-    <form onsubmit="return validateForm()">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit">Login</button>
-    </form>
-  </div>
-  <script src="script.js"></script>
+    <header>
+        <div class="login-logout">
+            <button id="login-logout-btn">Login</button>
+        </div>
+    </header>
+    
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="login-form-container">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="show-registration-form">Register here</a>.</p>
+            </div>
+            <div id="registration-form-container" style="display: none;">
+                <h2>Register</h2>
+                <form id="registration-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="reg-username">Username:</label>
+                    <input type="text" id="reg-username" name="reg-username" required>
+                    <label for="reg-password">Password:</label>
+                    <input type="password" id="reg-password" name="reg-password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" id="show-login-form">Login here</a>.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+           <div class="Welcome-message"> <h1>Welcome <p class="name">Guest</p> To your Tour Planning Dashboard</h1></div>
+        
+      
+    <div class="total-spending"> <h2>Total Spending: <span id="total-spending-amount">$0</span></h2></div>
+        <div class="dashboard">
+            <section id="bank-accounts">
+                <h2>Bank Accounts <button type="button" id="show-adds-account-form">+ Add Account</button></h2>
+                <ul id="bank-accounts-list"></ul>
+                <section id="add-bank-account" class="form-hidden">
+                    <form id="bank-account-form">
+                        <input type="text" id="account-name" placeholder="Account Name" required>
+                        <input type="number" id="initial-balance" placeholder="Initial Balance" required>
+                        <button type="submit">Add Account</button>
+                    </form>
+                </section>
+            </section>
+            <section id="tour-plans">
+                <h2>Tour Plans <button type="button" id="show-add-tour-form">+ Create Tour</button></h2>
+                <ul id="tour-plans-list"></ul>
+                <section id="add-tour" class="form-hidden">
+                    <form id="tour-form">
+                        <input type="text" id="tour-name" placeholder="Tour Name" required>
+                        <textarea id="tour-description" placeholder="Tour Description" required></textarea>
+                        <button type="submit">Create Tour</button>
+                    </form>
+                </section>
+            </section>
+            <section id="products">
+                <h2>Products <button type="button" id="show-add-product-form">+ Add Product</button></h2>
+                <ul id="products-list"></ul>
+                <section id="add-product" class="form-hidden">
+                    <form id="product-form">
+                        <input type="text" id="product-name" placeholder="Product Name" required>
+                        <input type="number" id="product-price" placeholder="Price" required>
+                        <button type="submit">Add Product</button>
+                    </form>
+                </section>
+            </section>
+            <section id="my-spendings">
+                <h2>My Spendings <button type="button" id="show-add-spending-form">+ Add Spending</button></h2>
+                <ul id="spendings-list"></ul>
+                <section id="add-spending" class="form-hidden">
+                    <form id="spending-form">
+                        <input type="text" id="spending-name" placeholder="Spending Name" required>
+                        <input type="number" id="spending-amount" placeholder="Amount" required>
+                        <select id="spending-product" required>
+                            <option value="">cash</option>
+                            <option value="">bkash</option>
+                            <option value="">nagad</option> 
+                        </select>
+                        <select id="tour-name" required>
+                            <option value="">Tour Name</option>
+                        </select>
+                        <button type="submit">Add Spending</button>
+                    </form>
+                </section>
+            </section>
+            
+            
+           
+           
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+            
+
+
