@@ -1,50 +1,57 @@
 -- schema for users
 create table users (
-    id int primary key,
-    name text,
-    username text,
-    email text,
-    password text
+    id integer primary key autoincrement,
+    name text not null,
+    username text not null unique,
+    password text not null
 );
 
 -- schema for bank accounts
-create table bankaccounts (
-    id int primary key,
-    name text,
+create table accounts (
+    id integer primary key autoincrement,
+    name text not null,
     balance real default 0,
-    userId int references users(id)
+    userId integer not null references users(id),
+    unique(name, userId)
 );
 
 -- schema for records
 create table records (
-    id int primary key,
-    name text,
+    id integer primary key autoincrement,
+    name text not null,
     description text,
-    createdBy int references users(id),
+    createdBy integer not null references users(id),
     createdAt text default (datetime('now'))
+);
+
+-- schema for record users
+create table recordusers (
+    recordId integer not null references records(id),
+    userId integer not null references users(id),
+    primary key (recordId, userId)
 );
 
 -- schema for products
 create table products (
-    id int primary key,
+    id integer primary key autoincrement,
     name text,
     price real,
-    addedBy int references users(id),
+    addedBy integer references users(id),
     createdAt text default (datetime('now'))
 );
 
 -- schema for product spendings
 create table spendings (
-    id int primary key,
+    id integer primary key autoincrement,
     name text,
     amount real,
-    productId int references products(id),
-    paidWith int references bankaccounts(id)
+    productId integer references products(id),
+    paidWith integer references accounts(id)
 );
 
 -- schema for consumers
 create table consumedby (
-    productId int references products(id),
-    userId int references users(id),
+    productId integer references products(id),
+    userId integer references users(id),
     primary key (productId, userId)
 );

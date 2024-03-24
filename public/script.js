@@ -1,12 +1,31 @@
 var modal = document.getElementById("login-modal");
-var btn = document.getElementById("login-logout-btn");
-var span = document.getElementsByClassName("close")[0];
+var loginLogoutBtn = document.getElementById("login-logout-btn");
+var modalClose = document.getElementById("modal-close");
 
-btn.onclick = function () {
-  modal.style.display = "block";
+(function init() {
+  const loggedIn = localStorage.getItem("loggedIn");
+  console.log(loggedIn);
+  if (loggedIn === "true") {
+    const name = localStorage.getItem("name");
+    document.getElementById("nameDisplay").innerText = name;
+    document.getElementById("login-logout-btn").innerText = "Logout";
+  }
+})();
+
+loginLogoutBtn.onclick = function () {
+  const loggedIn = localStorage.getItem("loggedIn");
+  if (loggedIn === "true") {
+    localStorage.setItem("loggedIn", false);
+    localStorage.removeItem("name");
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    document.getElementById("nameDisplay").innerText = "Guest";
+    document.getElementById("login-logout-btn").innerText = "Login";
+  }
+  else modal.style.display = "block";
 };
 
-span.onclick = function () {
+modalClose.onclick = function () {
   modal.style.display = "none";
 };
 
@@ -36,43 +55,7 @@ document
     document.getElementById("login-form-container").style.display = "block";
   });
 
-// Example registration function (simplified)
 document
-  .getElementById("registration-form")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
-    // Dummy validation
-    var name = document.getElementById("name").value;
-    var regUsername = document.getElementById("reg-username").value;
-    var regPassword = document.getElementById("reg-password").value;
-    // Dummy registration logic (here, just alerting the input values)
-    alert(
-      "Registration Successful\nName: " +
-        name +
-        "\nUsername: " +
-        regUsername +
-        "\nPassword: " +
-        regPassword
-    );
-  });
-
-// Example login function (simplified)
-document
-  .getElementById("login-form")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent form submission
-    // Dummy validation
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    if (username === "user" && password === "pass") {
-      alert("Login Successful");
-      modal.style.display = "none";
-      btn.textContent = "Logout";
-    } else {
-      alert("Login Failed: Incorrect username or password");
-    }
-  });
-  document
   .getElementById("show-adds-account-form")
   .addEventListener("click", function () {
     document.getElementById("add-bank-account").classList.toggle("form-hidden");
@@ -100,3 +83,49 @@ document
   .addEventListener("click", function () {
     document.getElementById("add-bank-account").classList.toggle("form-hidden");
   });
+
+async function register() {
+  const form = document.getElementById("registration-form");
+  const name = form.name.value;
+  const username = form["reg-username"].value;
+  const password = form["reg-password"].value;
+  const json = await fetch("/api/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, username, password }),
+  }).then((res) => res.json());
+  if (json.success) {
+    localStorage.setItem("username", username);
+    localStorage.setItem("name", name);
+    localStorage.setItem("password", password);
+    localStorage.setItem("loggedIn", true);
+    document.getElementById("nameDisplay").innerText = name;
+    document.getElementById("login-logout-btn").innerText = "Logout";
+    modal.style.display = "none";
+  }
+}
+
+async function login() {
+  const form = document.getElementById("login-form");
+  const username = form["username"].value;
+  const password = form["password"].value;
+  const json = await fetch("/api/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  }).then((res) => res.json());
+  if (json.success) {
+    const name = json.results[0].name;
+    localStorage.setItem("name", name);
+    localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
+    localStorage.setItem("loggedIn", true);
+    document.getElementById("nameDisplay").innerText = name;
+    document.getElementById("login-logout-btn").innerText = "Logout";
+    modal.style.display = "none";
+  }
+}

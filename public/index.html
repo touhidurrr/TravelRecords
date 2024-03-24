@@ -13,10 +13,10 @@
             <button id="login-logout-btn">Login</button>
         </div>
     </header>
-    
+
     <div id="login-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span id="modal-close">&times;</span>
             <div id="login-form-container">
                 <h2>Login</h2>
                 <form id="login-form">
@@ -24,7 +24,7 @@
                     <input type="text" id="username" name="username" required>
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
-                    <button type="submit">Login</button>
+                    <button type="button" onclick="login()">Login</button>
                 </form>
                 <p>Don't have an account? <a href="#" id="show-registration-form">Register here</a>.</p>
             </div>
@@ -37,17 +37,17 @@
                     <input type="text" id="reg-username" name="reg-username" required>
                     <label for="reg-password">Password:</label>
                     <input type="password" id="reg-password" name="reg-password" required>
-                    <button type="submit">Register</button>
+                    <button type="button" onclick="register()">Register</button>
                 </form>
                 <p>Already have an account? <a href="#" id="show-login-form">Login here</a>.</p>
             </div>
         </div>
     </div>
-    
+
     <div class="container">
-           <div class="Welcome-message"> <h1>Welcome <p class="name">Guest</p> To your Tour Planning Dashboard</h1></div>
-        
-      
+           <div class="Welcome-message"> <h1>Welcome <p class="name" id="nameDisplay">Guest</p> To your Tour Planning Dashboard</h1></div>
+
+
     <div class="total-spending"> <h2>Total Spending: <span id="total-spending-amount">$0</span></h2></div>
         <div class="dashboard">
             <section id="bank-accounts">
@@ -93,7 +93,7 @@
                         <select id="spending-product" required>
                             <option value="">cash</option>
                             <option value="">bkash</option>
-                            <option value="">nagad</option> 
+                            <option value="">nagad</option>
                         </select>
                         <select id="tour-name" required>
                             <option value="">Tour Name</option>
@@ -102,10 +102,10 @@
                     </form>
                 </section>
             </section>
-            
-            
-           
-           
+
+
+
+
         </div>
     </div>
     <script src="script.js"></script>
@@ -113,6 +113,6 @@
 </html>
 
 
-            
+
 
 
