@@ -129,12 +129,14 @@ async function accounts(request: Request, env: Env): Promise<Response> {
 }
 
 async function addAccount(request: Request, env: Env): Promise<Response> {
-  const { username, password, accountName, accountBalance } =
+  const { username, password, account } =
     await request.json<{
       username: string;
       password: string;
-      accountName: string;
-      accountBalance: number;
+      account: {
+        name: string;
+        balance: number;
+      }
     }>();
 
   try {
@@ -143,7 +145,7 @@ async function addAccount(request: Request, env: Env): Promise<Response> {
         select id from users where username = ? and password = ?
       ))`
     )
-      .bind(accountName, accountBalance, username, password)
+      .bind(account.name, account.balance, username, password)
       .all();
 
     return new Response(JSON.stringify({ success, results }), {
@@ -182,12 +184,14 @@ async function records(request: Request, env: Env): Promise<Response> {
 }
 
 async function addRecord(request: Request, env: Env): Promise<Response> {
-  const { username, password, recordName, recordDescription } =
+  const { username, password, record } =
     await request.json<{
       username: string;
       password: string;
-      recordName: string;
-      recordDescription: number;
+      record: {
+        name: string;
+        description: string;
+      }
     }>();
 
   try {
@@ -196,7 +200,7 @@ async function addRecord(request: Request, env: Env): Promise<Response> {
         select id from users where username = ? and password = ?
       )) returning id, createdBy`
     )
-      .bind(recordName, recordDescription, username, password)
+      .bind(record.name, record.description, username, password)
       .all();
 
     if (!success) {

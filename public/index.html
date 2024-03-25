@@ -51,15 +51,24 @@
     <div class="total-spending"> <h2>Total Spending: <span id="total-spending-amount">$0</span></h2></div>
         <div class="dashboard">
             <section id="bank-accounts">
-                <h2>Bank Accounts <button type="button" id="show-adds-account-form">+ Add Account</button></h2>
+                <h2>Bank Accounts <button type="button" id="show-add-account-form">+ Add Account</button></h2>
                 <ul id="bank-accounts-list"></ul>
                 <section id="add-bank-account" class="form-hidden">
-                    <form id="bank-account-form">
-                        <input type="text" id="account-name" placeholder="Account Name" required>
+                    <form id="add-account-form">
+                        <input type="text" id="add-account-name" placeholder="Account Name" required>
                         <input type="number" id="initial-balance" placeholder="Initial Balance" required>
-                        <button type="submit">Add Account</button>
+                        <button type="button" onclick="addAccount()">Add Account</button>
                     </form>
                 </section>
+                <table id="accounts-table" class="form-hidden">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </section>
             <section id="tour-plans">
                 <h2>Tour Plans <button type="button" id="show-add-tour-form">+ Create Tour</button></h2>
@@ -68,9 +77,19 @@
                     <form id="tour-form">
                         <input type="text" id="tour-name" placeholder="Tour Name" required>
                         <textarea id="tour-description" placeholder="Tour Description" required></textarea>
-                        <button type="submit">Create Tour</button>
+                        <button type="button" onclick="addRecord()">Create Tour</button>
                     </form>
                 </section>
+                <table id="records-table" class="form-hidden">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Created At</th>
+                            <th>Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
             </section>
             <section id="products">
                 <h2>Products <button type="button" id="show-add-product-form">+ Add Product</button></h2>
@@ -79,7 +98,7 @@
                     <form id="product-form">
                         <input type="text" id="product-name" placeholder="Product Name" required>
                         <input type="number" id="product-price" placeholder="Price" required>
-                        <button type="submit">Add Product</button>
+                        <button type="button">Add Product</button>
                     </form>
                 </section>
             </section>
@@ -95,24 +114,15 @@
                             <option value="">bkash</option>
                             <option value="">nagad</option>
                         </select>
-                        <select id="tour-name" required>
+                        <select id="tour-name-selector" required>
                             <option value="">Tour Name</option>
                         </select>
-                        <button type="submit">Add Spending</button>
+                        <button type="button">Add Spending</button>
                     </form>
                 </section>
             </section>
-
-
-
-
         </div>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
